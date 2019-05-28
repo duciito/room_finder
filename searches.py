@@ -76,15 +76,15 @@ def lift_search(start, end, building):
             return median_rooms, final_path, total_cost
 
         room.visited = True
-        has_lift = any('lift' == conn.link_type for conn in room.connections if conn.to not in [roo.name for roo in path if not isinstance(roo, int)])
+        has_lift = any('lift' == conn.link_type for conn in room.connections if conn.to not in
+                       [visited_room.name for visited_room in path if not isinstance(visited_room, int)])
 
         for connection in room.connections:
 
-            if connection.link_type == 'climb' and has_lift and int(building.get_room(connection.to).floor_num) not in floor_range:
-                print()
-                continue
-
             current_room = building.get_room(connection.to)
+
+            if connection.link_type == 'climb' and has_lift and int(current_room.floor_num) not in floor_range:
+                continue
 
             if not current_room.visited and current_room not in path:
                 new_path = list(path)

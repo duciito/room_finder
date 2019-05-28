@@ -15,7 +15,7 @@ def import_rooms(filename, building):
 
             params = line.replace(' ', '').replace(';', '').rstrip().split(',')
 
-            if 'yes' in line or 'no' in params:
+            if 'yes' in params or 'no' in params:
                 connection = Connection(params[1], params[2], params[3], True if params[4] == 'yes' else False)
                 building.add_connection(params[0], connection)
             else:
